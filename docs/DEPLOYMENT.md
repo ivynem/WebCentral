@@ -1,0 +1,63 @@
+# ForgeDesk Deployment
+
+**Status:** Candidate deployment approach only. Stage 0 found no application, deployment configuration, provider integration, database connection, or environment setup in the repository.
+
+## 1. Deployment shape
+
+Begin with the smallest application that satisfies the first reviewed milestone. Keep the initial application a modular monolith. Deploy compatible web frontends and supported server functions to a selected host; long-running APIs, scheduled jobs, or workers may require a separate host.
+
+Vercel is a candidate for compatible frontends and server functions, not a configured or verified provider. Neon PostgreSQL is a candidate hosted database, not a provisioned or verified service. Provider selection must account for runtime limits, regional availability, cost, data handling, operational support, and the actual application shape.
+
+## 2. Environments
+
+| Environment | Intended use | Data and access |
+|---|---|---|
+| Local | Development | Local/test data; no production credentials by default. |
+| Preview | Pull request validation | Isolated non-production database and credentials; never production data. |
+| Production | Real users | Restricted credentials, reviewed migrations, backups, monitoring, and rollback plan. |
+
+Each environment must have separate secrets and data. Avoid copying personal production data into previews. Use synthetic fixtures where possible.
+
+## 3. Configuration and secrets
+
+Configuration names should be introduced only when needed. Candidate examples from the README include `DATABASE_URL`, `AUTH_SECRET`, and `APP_URL`; none is currently required by code in this repository.
+
+- Validate required configuration at startup and fail with a safe, actionable message.
+- Store local secrets in ignored local environment files and hosted secrets in the provider's secret manager.
+- Never commit credentials or expose database/auth secrets through browser-visible variables.
+- Restrict production access and rotate credentials after suspected exposure.
+- Redact secrets and personal data from logs.
+
+## 4. Database, migration, backup, restore
+
+PostgreSQL is the hosted database direction in the README. Neon is a candidate provider. Choose a database client/ORM after inspecting the application requirements. Keep development, preview, and production isolated.
+
+Migrations must be versioned and reviewed. Test them on disposable or isolated non-production data. Before production migration, define a backup and recovery plan, compatibility window, and rollback/forward-fix approach. Document and periodically verify backup restoration. No backup or restore service is currently configured.
+
+SQLite may be evaluated for local/offline use behind a tested adapter; do not promise portability until migration, constraints, transaction, and query compatibility are tested.
+
+## 5. Build, release, and rollback
+
+The build and deployment commands are unknown because no package manifest or application code is present. Stage 2 must establish reproducible scripts and compatible runtime versions before provider configuration.
+
+For a release: review the change, run the repository's available checks, deploy to an isolated preview, validate critical paths, approve production release, monitor health, and retain a rollback or forward-fix plan. Production deployment from `main` is a roadmap proposal, not a current workflow.
+
+## 6. Low-resource and unreliable-network considerations
+
+Keep the app's initial bundle and requests small, paginate large datasets, avoid unnecessary background polling, and make retries explicit and safe. Provide useful failure states when a hosted dependency is unavailable. Cache public or non-sensitive read-only data only when freshness rules are clear.
+
+Offline write queues and synchronization are not part of the current implementation. Before enabling them, define encryption/privacy, expiry, replay/idempotency, conflict resolution, and user-visible sync status.
+
+## 7. Operational readiness
+
+Before production use, define health/readiness checks, secret-safe logs, monitoring/alerts, ownership, incident response, data retention, support, and recovery objectives. Add only observability and worker infrastructure needed by a reviewed milestone.
+
+## 8. Provider decision record
+
+| Capability | Current status |
+|---|---|
+| Vercel | Candidate for compatible frontends/server functions; not configured or verified. |
+| Neon PostgreSQL | Candidate hosted database; not provisioned or verified. |
+| Other host | To evaluate if long-running services or worker needs exceed selected host capabilities. |
+| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet. |
+| CI/CD | No workflow was present at the Stage 0 inspected head. |
