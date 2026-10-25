@@ -54,10 +54,10 @@ Before production use, define health/readiness checks, secret-safe logs, monitor
 
 ## 8. Provider decision record
 
-| Capability             | Current status                                                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Vercel                 | Repository build/output configuration is committed; dashboard project settings and a successful hosted deployment are not yet verified.          |
-| Neon PostgreSQL        | `DATABASE_URL` is read server-side by the health function; branch provisioning, environment variables, and hosted connectivity are not verified. |
-| Other host             | To evaluate if long-running services or worker needs exceed selected host capabilities.                                                          |
-| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet.                                                                    |
-| CI/CD                  | No workflow was present at the Stage 0 inspected head.                                                                                           |
+| Capability             | Current status                                                                                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vercel                 | Repository build/output configuration is committed and PR preview deployed successfully. Preview access is protected and the health route has not been checked. |
+| Neon PostgreSQL        | `DATABASE_URL` is read server-side by the health function; Preview environment settings and hosted connectivity are not yet verified.                           |
+| Other host             | To evaluate if long-running services or worker needs exceed selected host capabilities.                                                                         |
+| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet.                                                                                   |
+| CI/CD                  | No workflow was present at the Stage 0 inspected head.                                                                                                          |

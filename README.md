@@ -81,7 +81,7 @@ Work through stages in dependency order. Stages may overlap only when their prer
 - [ ] Verify the deployment and document logs and rollback.
       **Done when:** a working app can be tested from a preview URL.
 
-**First UI slice:** the ForgeDesk progress dashboard is served alongside `api/health.ts` in Vercel and from `src/server.ts` in Docker Compose. It tracks the current phase, delivery steps, Vercel failure, and live database health. Each phase now includes its finished UI before that phase is considered delivered. The Compose app returned `200 OK` after a real `SELECT 1` against local PostgreSQL; Vercel deployment remains unverified until the new preview succeeds.
+**First UI slice:** the ForgeDesk progress dashboard is served alongside `api/health.ts` in Vercel and from `src/server.ts` in Docker Compose. It tracks the current phase, delivery steps, preview status, and live database health. Each phase includes its finished UI before that phase is considered delivered. Local Compose returned `200 OK` after a real `SELECT 1` against local PostgreSQL. Vercel now reports the preview deployed successfully after the build output fix; the protected preview redirects to Vercel sign-in, so hosted Neon connectivity has not yet been verified.
 
 ## Stage 4 — Environments and database
 
@@ -94,7 +94,7 @@ Work through stages in dependency order. Stages may overlap only when their prer
 - [ ] Never run destructive tests or unreviewed migrations against production.
       **Done when:** migrations, seed data, and integration tests work against isolated development data.
 
-**Database connection slice (2026-10-25):** implemented a server-only PostgreSQL `SELECT 1` health check using `pg`, a bounded pool, and sanitized `200`/`503` responses. `compose.yaml` supplies a local PostgreSQL service for Windows Docker Desktop. The Docker image built successfully and a live local Compose request returned `200 OK` with `database: connected`. Vercel must receive the Neon pooled `DATABASE_URL` through its server-side environment settings; the hosted preview request remains unverified. See [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
+**Database connection slice (2026-10-25):** implemented a server-only PostgreSQL `SELECT 1` health check using `pg`, a bounded pool, and sanitized `200`/`503` responses. `compose.yaml` supplies a local PostgreSQL service for Windows Docker Desktop. The Docker image built successfully and a live local Compose request returned `200 OK` with `database: connected`. Vercel's preview deployment now succeeds with generated static output and the Node function; hosted Neon connectivity still awaits an authenticated `/api/health` request and a configured Preview `DATABASE_URL`. See [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
 
 ## Stage 5 — Shared application foundation
 

@@ -111,15 +111,15 @@
               <div class="summary-top">
                 <span class="card-icon icon-red" aria-hidden="true">↗</span
                 ><span class="card-kicker">VERCEL PREVIEW</span
-                ><span class="status-pill pill-error">Failed</span>
+                ><span class="status-pill pill-progress">Preview ready</span>
               </div>
-              <div class="summary-value">Deployment needs attention</div>
+              <div class="summary-value">Preview deployed</div>
               <div class="summary-detail">
-                No preview URL was produced, so Neon was not tested.
+                Preview is ready. Sign in to Vercel to check Neon connectivity.
               </div>
               <a
                 class="text-button"
-                href="https://vercel.com/ivynems-projects/webcentral/J92TsFv5gM5FpzMrL6qE8V4pbi84"
+                href="https://webcentral-git-feat-neon-health-docker-ivynems-projects.vercel.app"
                 target="_blank"
                 rel="noreferrer"
                 >Open deployment <span aria-hidden="true">↗</span></a
@@ -134,7 +134,7 @@
               </div>
               <div class="summary-value">First app & database</div>
               <div class="summary-detail">
-                Local health route works; hosted preview is the next milestone.
+                Vercel preview is ready; verify the protected Neon health route.
               </div>
               <a class="text-button" href="#roadmap"
                 >See roadmap <span aria-hidden="true">↘</span></a
@@ -240,24 +240,23 @@
                     >↗</a
                   >
                 </li>
-                <li class="roadmap-item is-attention">
-                  <span class="roadmap-marker" aria-hidden="true">!</span>
+                <li class="roadmap-item is-progress">
+                  <span class="roadmap-marker" aria-hidden="true">03</span>
                   <div class="roadmap-copy">
                     <div class="roadmap-title-row">
                       <h3>First deployable app</h3>
-                      <span class="status-pill pill-error"
-                        >Needs attention</span
+                      <span class="status-pill pill-progress"
+                        >Preview ready</span
                       >
                     </div>
                     <p>
-                      Progress dashboard and local Docker path work; Vercel
-                      preview failed.
+                      Dashboard and Docker path work; Vercel preview deployed.
                     </p>
                     <div class="phase-mini">
                       <span class="mini-done">✓ Plan</span
                       ><span class="mini-done">✓ Build</span
                       ><span class="mini-done">✓ UI</span
-                      ><span class="mini-next">Fix deploy</span>
+                      ><span class="mini-done">✓ Deploy</span>
                     </div>
                   </div>
                   <a
@@ -279,8 +278,8 @@
                       >
                     </div>
                     <p>
-                      Local PostgreSQL passes; Neon preview connectivity awaits
-                      a successful deployment.
+                      Local PostgreSQL passes; Neon awaits a protected preview
+                      health check.
                     </p>
                     <div class="phase-mini">
                       <span class="mini-done">✓ Plan</span
@@ -312,25 +311,22 @@
                   <li>
                     <span class="next-index">01</span>
                     <div>
-                      <strong>Find the Vercel build error</strong>
-                      <p>The deployment status points to Vercel CLI logs.</p>
-                      <code>vercel inspect … --logs</code>
+                      <strong>Open the Vercel preview</strong>
+                      <p>Sign in if prompted; preview protection is enabled.</p>
                     </div>
                   </li>
                   <li>
                     <span class="next-index">02</span>
                     <div>
-                      <strong>Get a preview URL</strong>
-                      <p>Redeploy the PR after the build issue is fixed.</p>
+                      <strong>Run the Neon health check</strong>
+                      <p>Use the database card after opening the preview.</p>
                     </div>
                   </li>
                   <li>
                     <span class="next-index">03</span>
                     <div>
-                      <strong>Verify Neon from preview</strong>
-                      <p>
-                        Run the health check with the preview's server-side URL.
-                      </p>
+                      <strong>Confirm environment settings</strong>
+                      <p>Preview needs the Neon pooled DATABASE_URL.</p>
                     </div>
                   </li>
                 </ol>
@@ -372,8 +368,10 @@
                       >!</span
                     >
                     <div>
-                      <strong>Vercel preview failed</strong>
-                      <p>Deployment has no preview URL</p>
+                      <strong>Vercel preview deployed</strong>
+                      <p>
+                        Hosted health check awaits authorized preview access
+                      </p>
                     </div>
                     <time datetime="2026-10-25">Today</time>
                   </div>
