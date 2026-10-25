@@ -2,6 +2,10 @@
 
 This roadmap records the verified starting point and follows the staged plan in [README.md](../README.md). A checkbox means work has been completed and its evidence is recorded; planned features are not implementation claims.
 
+## Delivery method
+
+Use a sequential waterfall across phases: agree scope and acceptance criteria, implement the phase behavior and its finished UI together, then verify the integrated workflow before starting the next phase. A phase without a direct user screen must end with a useful developer/project UI. Do not defer UI implementation to a later phase; the visual website builder remains separately deferred.
+
 ## Stage 0 — Repository inspection and rules
 
 - [x] Inspect repository files, branches, recent commit history, and the existing README roadmap.
@@ -45,7 +49,7 @@ This roadmap records the verified starting point and follows the staged plan in 
 
 ## Stage 3 — First deployable application
 
-The first minimal slice is `GET /api/health`, implemented as a native Vercel Node.js function and available locally through the Node HTTP server. The Docker image built successfully and the Compose endpoint returned `200 OK` after checking local PostgreSQL. Vercel deployment and preview verification remain outstanding.
+The first visible slice is a ForgeDesk project progress dashboard, served statically for Vercel and by the local Node HTTP server. Its database card runs `GET /api/health` and shows the real connection result. The Docker image built successfully; the page/assets returned `200 OK`, and its health check passed against local PostgreSQL. Vercel deployment and preview verification remain outstanding.
 
 ## Stage 4 — Environments and database
 

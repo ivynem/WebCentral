@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta
+      name="description"
+      content="ForgeDesk project progress, roadmap, deployment, and database connection status."
+    />
+    <title>Project overview · ForgeDesk</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#overview" aria-label="ForgeDesk overview">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span class="brand-copy"
+            ><strong>ForgeDesk</strong><small>BUILDING WORKSPACE</small></span
+          >
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+        <nav class="primary-nav">
+          <a class="nav-link is-active" href="#overview" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">⌂</span> Overview
+          </a>
+          <a class="nav-link" href="#roadmap">
+            <span class="nav-icon" aria-hidden="true">▤</span> Roadmap
+          </a>
+          <a class="nav-link" href="#connections">
+            <span class="nav-icon" aria-hidden="true">⌁</span> Connections
+          </a>
+          <a class="nav-link" href="#activity">
+            <span class="nav-icon" aria-hidden="true">◷</span> Activity
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="workspace-chip">
+            <span class="workspace-dot"></span
+            ><span><small>PROJECT</small><strong>WebCentral</strong></span>
+          </div>
+          <div class="sidebar-footnote">
+            A clear path from plan to working product.
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content" id="overview">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <span>Workspace</span><span class="crumb-separator">/</span
+            ><strong>WebCentral</strong>
+          </div>
+          <div class="topbar-right">
+            <span class="branch-pill"
+              ><span aria-hidden="true">⌘</span> feat/neon-health-docker</span
+            ><span class="avatar" aria-label="Project workspace">W</span>
+          </div>
+        </header>
+
+        <div class="page-wrap">
+          <section class="page-heading" aria-labelledby="page-title">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span> PROJECT WORKSPACE
+              </div>
+              <h1 id="page-title">Project overview</h1>
+              <p class="page-subtitle">
+                A live view of ForgeDesk milestones, deployments, and database
+                readiness.
+              </p>
+            </div>
+            <a class="button button-primary" href="#roadmap"
+              ><span aria-hidden="true">＋</span> View next steps</a
+            >
+          </section>
+
+          <section class="waterfall-banner" aria-label="Delivery approach">
+            <span class="waterfall-icon" aria-hidden="true">✳</span>
+            <div>
+              <strong>Each phase ships with its UI.</strong
+              ><span
+                >Plan → build → interface → verify. The experience grows with
+                the product, one completed phase at a time.</span
+              >
+            </div>
+            <span class="waterfall-step">PHASED DELIVERY</span>
+          </section>
+
+          <section class="summary-grid" aria-label="Current project status">
+            <article class="summary-card connection-summary" id="connections">
+              <div class="summary-top">
+                <span class="card-icon icon-blue" aria-hidden="true">⌁</span
+                ><span class="card-kicker">DATABASE CONNECTION</span
+                ><span id="db-status-dot" class="status-dot is-pending"></span>
+              </div>
+              <div id="db-status" class="summary-value">Checking…</div>
+              <div id="db-detail" class="summary-detail">
+                Testing the configured PostgreSQL connection
+              </div>
+              <button id="check-database" class="text-button" type="button">
+                Check again <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="summary-card">
+              <div class="summary-top">
+                <span class="card-icon icon-red" aria-hidden="true">↗</span
+                ><span class="card-kicker">VERCEL PREVIEW</span
+                ><span class="status-pill pill-error">Failed</span>
+              </div>
+              <div class="summary-value">Deployment needs attention</div>
+              <div class="summary-detail">
+                No preview URL was produced, so Neon was not tested.
+              </div>
+              <a
+                class="text-button"
+                href="https://vercel.com/ivynems-projects/webcentral/J92TsFv5gM5FpzMrL6qE8V4pbi84"
+                target="_blank"
+                rel="noreferrer"
+                >Open deployment <span aria-hidden="true">↗</span></a
+              >
+            </article>
+
+            <article class="summary-card">
+              <div class="summary-top">
+                <span class="card-icon icon-violet" aria-hidden="true">◈</span
+                ><span class="card-kicker">CURRENT PHASE</span
+                ><span class="status-pill pill-progress">Stage 03–04</span>
+              </div>
+              <div class="summary-value">First app & database</div>
+              <div class="summary-detail">
+                Local health route works; hosted preview is the next milestone.
+              </div>
+              <a class="text-button" href="#roadmap"
+                >See roadmap <span aria-hidden="true">↘</span></a
+              >
+            </article>
+          </section>
+
+          <div class="content-grid">
+            <section
+              class="panel roadmap-panel"
+              id="roadmap"
+              aria-labelledby="roadmap-title"
+            >
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">DELIVERY PLAN</div>
+                  <h2 id="roadmap-title">Foundation roadmap</h2>
+                </div>
+                <a
+                  class="subtle-link"
+                  href="https://github.com/ivynem/WebCentral/pull/4"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Open PR #4 <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <div
+                class="phase-flow"
+                aria-label="Each phase includes planning, implementation, UI, and verification"
+              >
+                <span>Plan</span><i></i><span>Build</span><i></i
+                ><span class="flow-ui">UI</span><i></i><span>Verify</span>
+              </div>
+
+              <ol class="roadmap-list">
+                <li class="roadmap-item is-done">
+                  <span class="roadmap-marker" aria-hidden="true">✓</span>
+                  <div class="roadmap-copy">
+                    <div class="roadmap-title-row">
+                      <h3>Repository baseline</h3>
+                      <span class="status-pill pill-done">Recorded</span>
+                    </div>
+                    <p>Starting state and preservation rules documented.</p>
+                    <div class="phase-mini">
+                      <span class="mini-done">✓ Plan</span
+                      ><span class="mini-done">✓ Build</span
+                      ><span class="mini-done">✓ UI</span
+                      ><span class="mini-done">✓ Verify</span>
+                    </div>
+                  </div>
+                  <span class="roadmap-number">00</span>
+                </li>
+                <li class="roadmap-item is-review">
+                  <span class="roadmap-marker" aria-hidden="true">02</span>
+                  <div class="roadmap-copy">
+                    <div class="roadmap-title-row">
+                      <h3>Requirements & architecture</h3>
+                      <span class="status-pill pill-review"
+                        >Review pending</span
+                      >
+                    </div>
+                    <p>Scope and module boundaries are proposed in PR #2.</p>
+                    <div class="phase-mini">
+                      <span class="mini-done">✓ Plan</span
+                      ><span class="mini-done">✓ Build</span
+                      ><span class="mini-done">✓ UI</span
+                      ><span class="mini-next">Review</span>
+                    </div>
+                  </div>
+                  <a
+                    class="roadmap-number roadmap-link"
+                    href="https://github.com/ivynem/WebCentral/pull/2"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open Stage 1 pull request"
+                    >↗</a
+                  >
+                </li>
+                <li class="roadmap-item is-progress">
+                  <span class="roadmap-marker" aria-hidden="true">03</span>
+                  <div class="roadmap-copy">
+                    <div class="roadmap-title-row">
+                      <h3>Development environment</h3>
+                      <span class="status-pill pill-progress">In progress</span>
+                    </div>
+                    <p>
+                      Lockfile and checks pass; repeat the full suite on pinned
+                      Node 24.
+                    </p>
+                    <div class="phase-mini">
+                      <span class="mini-done">✓ Plan</span
+                      ><span class="mini-done">✓ Build</span
+                      ><span class="mini-done">✓ UI</span
+                      ><span class="mini-next">Node 24</span>
+                    </div>
+                  </div>
+                  <a
+                    class="roadmap-number roadmap-link"
+                    href="https://github.com/ivynem/WebCentral/pull/3"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open Stage 2 pull request"
+                    >↗</a
+                  >
+                </li>
+                <li class="roadmap-item is-attention">
+                  <span class="roadmap-marker" aria-hidden="true">!</span>
+                  <div class="roadmap-copy">
+                    <div class="roadmap-title-row">
+                      <h3>First deployable app</h3>
+                      <span class="status-pill pill-error"
+                        >Needs attention</span
+                      >
+                    </div>
+                    <p>
+                      Progress dashboard and local Docker path work; Vercel
+                      preview failed.
+                    </p>
+                    <div class="phase-mini">
+                      <span class="mini-done">✓ Plan</span
+                      ><span class="mini-done">✓ Build</span
+                      ><span class="mini-done">✓ UI</span
+                      ><span class="mini-next">Fix deploy</span>
+                    </div>
+                  </div>
+                  <a
+                    class="roadmap-number roadmap-link"
+                    href="https://github.com/ivynem/WebCentral/pull/4"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open Stage 3 pull request"
+                    >↗</a
+                  >
+                </li>
+                <li class="roadmap-item is-progress">
+                  <span class="roadmap-marker" aria-hidden="true">04</span>
+                  <div class="roadmap-copy">
+                    <div class="roadmap-title-row">
+                      <h3>Database environments</h3>
+                      <span class="status-pill pill-progress"
+                        >Partially verified</span
+                      >
+                    </div>
+                    <p>
+                      Local PostgreSQL passes; Neon preview connectivity awaits
+                      a successful deployment.
+                    </p>
+                    <div class="phase-mini">
+                      <span class="mini-done">✓ Plan</span
+                      ><span class="mini-done">✓ Build</span
+                      ><span class="mini-done">✓ UI</span
+                      ><span class="mini-next">Neon check</span>
+                    </div>
+                  </div>
+                  <span class="roadmap-number">04</span>
+                </li>
+              </ol>
+              <div class="roadmap-foot">
+                <span class="foot-check" aria-hidden="true">✓</span> UI is
+                included in each phase deliverable, not left to a future design
+                stage.
+              </div>
+            </section>
+
+            <aside class="side-column">
+              <section class="panel next-panel" aria-labelledby="next-title">
+                <div class="panel-heading">
+                  <div>
+                    <div class="eyebrow">KEEP MOVING</div>
+                    <h2 id="next-title">Next steps</h2>
+                  </div>
+                  <span class="sparkle" aria-hidden="true">✦</span>
+                </div>
+                <ol class="next-list">
+                  <li>
+                    <span class="next-index">01</span>
+                    <div>
+                      <strong>Find the Vercel build error</strong>
+                      <p>The deployment status points to Vercel CLI logs.</p>
+                      <code>vercel inspect … --logs</code>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="next-index">02</span>
+                    <div>
+                      <strong>Get a preview URL</strong>
+                      <p>Redeploy the PR after the build issue is fixed.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="next-index">03</span>
+                    <div>
+                      <strong>Verify Neon from preview</strong>
+                      <p>
+                        Run the health check with the preview's server-side URL.
+                      </p>
+                    </div>
+                  </li>
+                </ol>
+                <a
+                  class="button button-secondary"
+                  href="https://github.com/ivynem/WebCentral/pull/4"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Review current work <span aria-hidden="true">↗</span></a
+                >
+              </section>
+
+              <section
+                class="panel activity-panel"
+                id="activity"
+                aria-labelledby="activity-title"
+              >
+                <div class="panel-heading">
+                  <div>
+                    <div class="eyebrow">LATEST UPDATES</div>
+                    <h2 id="activity-title">Recent activity</h2>
+                  </div>
+                </div>
+                <div class="activity-list">
+                  <div class="activity-row">
+                    <span
+                      class="activity-icon activity-green"
+                      aria-hidden="true"
+                      >✓</span
+                    >
+                    <div>
+                      <strong>Local database connected</strong>
+                      <p>Compose health query passed</p>
+                    </div>
+                    <time datetime="2026-10-25">Today</time>
+                  </div>
+                  <div class="activity-row">
+                    <span class="activity-icon activity-red" aria-hidden="true"
+                      >!</span
+                    >
+                    <div>
+                      <strong>Vercel preview failed</strong>
+                      <p>Deployment has no preview URL</p>
+                    </div>
+                    <time datetime="2026-10-25">Today</time>
+                  </div>
+                  <div class="activity-row">
+                    <span class="activity-icon activity-blue" aria-hidden="true"
+                      >↗</span
+                    >
+                    <div>
+                      <strong>Foundation PR opened</strong>
+                      <p>Health check and Windows Docker</p>
+                    </div>
+                    <time datetime="2026-10-25">Today</time>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </div>
+
+          <footer class="page-footer">
+            <span>ForgeDesk · WebCentral</span
+            ><span
+              >Project status is based on verified work; hosted Neon remains
+              unverified.</span
+            >
+          </footer>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -9,6 +9,7 @@ This document records the Stage 2 tooling baseline and the first database health
 - Use TypeScript in strict mode for new application and backend code. TypeScript 5.9.3 is pinned because the selected TypeScript ESLint integration documents support through TypeScript <6.1. Preserve any existing HTML/CSS/JavaScript if later discovered.
 - Tool versions are exact in `package.json`; `package-lock.json` is generated for repeatable `npm ci` installs.
 - The first server runtime uses Node's built-in HTTP server locally and Vercel's native TypeScript function under `api/`. It intentionally adds no web framework.
+- The root progress dashboard is static HTML/CSS/JavaScript served by the local Node server and deployed as Vercel static assets. Each project phase includes its user-facing UI in the same deliverable; it is not scheduled as a later visual-only pass.
 - PostgreSQL access uses the `pg` driver from server-only modules. A small pool is reused within a warm function instance and bounded to two connections. Use Neon's pooled connection string for Vercel environments.
 
 ## Commands
@@ -44,6 +45,7 @@ Vercel should receive its environment-specific `DATABASE_URL` from the Neon inte
 - `npm run check` passed on the available Node.js 26.12.1/npm 11.20.0 host: formatting, ESLint, TypeScript type-check, and 2 health response tests. Node 26 is outside the project's allowed Node 24 range.
 - `npm run build` passed on the host, and `docker compose build` passed using Node.js 24.22.1 in the image.
 - `docker compose up --detach` started PostgreSQL and the app; `curl http://localhost:3000/api/health` returned `200 OK` and `{"status":"ok","database":"connected"}`. `docker compose down` then stopped the containers and retained the named data volume.
+- The progress dashboard and both static assets (`/`, `/styles.css`, `/app.js`) returned `200 OK` from the rebuilt Compose image.
 - No live Vercel preview/Neon URL was tested. Two moderate npm advisories appeared for the full dependency tree during the image build; runtime-only impact has not been audited.
 
 ## Current limitations and next steps

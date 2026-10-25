@@ -81,6 +81,10 @@ Authorization must be checked on the server for every protected action. Role mem
 
 A feature can be marked complete only when it meets its documented scope, preserves existing behavior, enforces authorization and tenant boundaries, validates input, handles errors, has appropriate automated checks, documents configuration/data changes, and has been reviewed through a pull request. Roadmap status must reflect verified implementation rather than intent.
 
+### Waterfall phase deliverables
+
+For each phase, finish requirements and acceptance criteria first, then deliver the working behavior with its final user-facing UI in the same phase and verify the end-to-end path before advancing. Do not postpone interface implementation to a later phase. Platform groundwork without a direct user screen must include a useful developer/project UI as its visible deliverable. This does not move the separate visual website-builder capability out of its deferred phase.
+
 ## 8. Decisions and open questions
 
 - **Proposed:** TypeScript and modular monolith.

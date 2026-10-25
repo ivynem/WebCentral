@@ -35,6 +35,8 @@ These are planned technical choices, not a claim that integrations are already c
 
 Work through stages in dependency order. Stages may overlap only when their prerequisites are satisfied.
 
+**Waterfall delivery rule:** complete requirements and acceptance criteria for a phase, then deliver its working feature together with its finished user-facing UI and verify the integrated path before advancing. Do not defer UI to a later, separate pass. For platform groundwork that has no end-user screen, provide a useful project/developer UI as the visible deliverable. The visual website builder remains a separate deferred product capability.
+
 ## Stage 0 — Repository inspection and rules
 
 - [x] Inspect files, branches, commit history, and existing applications.
@@ -79,7 +81,7 @@ Work through stages in dependency order. Stages may overlap only when their prer
 - [ ] Verify the deployment and document logs and rollback.
       **Done when:** a working app can be tested from a preview URL.
 
-**First slice in progress:** `api/health.ts` provides a Vercel Node.js health function, while `src/server.ts` serves the same health response locally through Docker Compose. The Docker image built on the pinned Node 24 image, and the Compose app returned `200 OK` after a real `SELECT 1` against local PostgreSQL. Vercel deployment remains unverified.
+**First UI slice:** the ForgeDesk progress dashboard is served alongside `api/health.ts` in Vercel and from `src/server.ts` in Docker Compose. It tracks the current phase, delivery steps, Vercel failure, and live database health. Each phase now includes its finished UI before that phase is considered delivered. The Compose app returned `200 OK` after a real `SELECT 1` against local PostgreSQL; Vercel deployment remains unverified until the new preview succeeds.
 
 ## Stage 4 — Environments and database
 
