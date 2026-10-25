@@ -8,6 +8,8 @@ Use a TypeScript modular monolith as the initial application shape. Modules shar
 
 Preserve existing HTML/CSS/JavaScript if encountered; the inspected repository currently has no application source to migrate. React + TypeScript is a candidate for future interfaces, subject to a later implementation decision.
 
+The first executable slice is a Node.js health endpoint: Vercel's native TypeScript function at `api/health.ts` and a small Node HTTP server for local Compose use share the same health response and database check. PostgreSQL access currently uses the `pg` driver with a bounded pool. This is an initial adapter decision, not an ORM or domain architecture decision.
+
 ## 2. Logical layers
 
 1. **Interfaces:** Developer Portal, administration, business UI, customer pages, and API routes. User interfaces are clients, never authorization authorities.

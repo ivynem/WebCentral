@@ -1,6 +1,6 @@
 # ForgeDesk Deployment
 
-**Status:** Candidate deployment approach only. Stage 0 found no application, deployment configuration, provider integration, database connection, or environment setup in the repository.
+**Status:** The first TypeScript health endpoint is implemented for Vercel's native Node.js function runtime and local Docker Compose. `vercel.json` now pins the build command and generated static output directory. The Vercel project settings, Neon environment variables, and live deployment still require verification in the Vercel account.
 
 ## 1. Deployment shape
 
@@ -10,17 +10,17 @@ Vercel is a candidate for compatible frontends and server functions, not a confi
 
 ## 2. Environments
 
-| Environment | Intended use | Data and access |
-|---|---|---|
-| Local | Development | Local/test data; no production credentials by default. |
-| Preview | Pull request validation | Isolated non-production database and credentials; never production data. |
-| Production | Real users | Restricted credentials, reviewed migrations, backups, monitoring, and rollback plan. |
+| Environment | Intended use            | Data and access                                                                      |
+| ----------- | ----------------------- | ------------------------------------------------------------------------------------ |
+| Local       | Development             | Local/test data; no production credentials by default.                               |
+| Preview     | Pull request validation | Isolated non-production database and credentials; never production data.             |
+| Production  | Real users              | Restricted credentials, reviewed migrations, backups, monitoring, and rollback plan. |
 
 Each environment must have separate secrets and data. Avoid copying personal production data into previews. Use synthetic fixtures where possible.
 
 ## 3. Configuration and secrets
 
-Configuration names should be introduced only when needed. Candidate examples from the README include `DATABASE_URL`, `AUTH_SECRET`, and `APP_URL`; none is currently required by code in this repository.
+The health function requires `DATABASE_URL`. Configure it in Vercel's Environment Variables for Preview and Production separately, selecting the intended environment for each. Use the pooled connection string copied from the matching Neon branch; keep credentials server-side and do not use a `NEXT_PUBLIC_` prefix. For local Docker development, Compose defaults to its local PostgreSQL service; to override it with a local Neon connection, put `DATABASE_URL` in an ignored `.env` file. `.env.example` contains a non-secret local example.
 
 - Validate required configuration at startup and fail with a safe, actionable message.
 - Store local secrets in ignored local environment files and hosted secrets in the provider's secret manager.
@@ -38,7 +38,7 @@ SQLite may be evaluated for local/offline use behind a tested adapter; do not pr
 
 ## 5. Build, release, and rollback
 
-The build and deployment commands are unknown because no package manifest or application code is present. Stage 2 must establish reproducible scripts and compatible runtime versions before provider configuration.
+The repository provides `npm run build` and `npm start` for the local Node HTTP server. `vercel.json` runs that build and publishes the generated `public/` directory, while Vercel discovers `api/health.ts` as a Node.js function. The build copies the Overview, Roadmap, Connections, and Activity pages plus shared assets into `public/`; TypeScript output remains in `dist/` and is not published as static files. Keep `DATABASE_URL` in Vercel's server-side environment settings; use an isolated Neon preview branch and pooled URL for previews. A successful `/api/health` response is required to confirm deployment connectivity.
 
 For a release: review the change, run the repository's available checks, deploy to an isolated preview, validate critical paths, approve production release, monitor health, and retain a rollback or forward-fix plan. Production deployment from `main` is a roadmap proposal, not a current workflow.
 
@@ -54,10 +54,10 @@ Before production use, define health/readiness checks, secret-safe logs, monitor
 
 ## 8. Provider decision record
 
-| Capability | Current status |
-|---|---|
-| Vercel | Candidate for compatible frontends/server functions; not configured or verified. |
-| Neon PostgreSQL | Candidate hosted database; not provisioned or verified. |
-| Other host | To evaluate if long-running services or worker needs exceed selected host capabilities. |
-| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet. |
-| CI/CD | No workflow was present at the Stage 0 inspected head. |
+| Capability             | Current status                                                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vercel                 | Repository build/output configuration is committed and PR preview deployed successfully. An unauthenticated health request redirects to Vercel sign-in. |
+| Neon PostgreSQL        | `DATABASE_URL` is read server-side by the health function; Preview environment settings and hosted connectivity are not yet verified.                   |
+| Other host             | To evaluate if long-running services or worker needs exceed selected host capabilities.                                                                 |
+| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet.                                                                           |
+| CI/CD                  | No workflow was present at the Stage 0 inspected head.                                                                                                  |
