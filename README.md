@@ -36,28 +36,36 @@ These are planned technical choices, not a claim that integrations are already c
 Work through stages in dependency order. Stages may overlap only when their prerequisites are satisfied.
 
 ## Stage 0 — Repository inspection and rules
-- [ ] Inspect files, branches, commit history, and existing applications.
-- [ ] Record what works, what is planned, and any technical debt.
-- [ ] Confirm ForgeDesk as the product name and WebCentral as the repository.
-- [ ] Define branch, commit, review, and file-preservation rules.
+- [x] Inspect files, branches, commit history, and existing applications.
+- [x] Record what works, what is planned, and any technical debt.
+- [x] Confirm ForgeDesk as the product name and WebCentral as the repository.
+- [x] Define branch, commit, review, and file-preservation rules.
 **Done when:** the real starting state is documented and the first implementation task is evidence-based.
 
+**Recorded baseline:** [`docs/ROADMAP.md`](docs/ROADMAP.md) records the inspected tree, branches, commits, and merged roadmap PR. The inspected `main` tree contained only this README; no application/runtime checks were available.
+
 ## Stage 1 — Requirements and architecture
-- [ ] Write `docs/PROJECT_SPECIFICATION.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/MODULES.md`, and `docs/DEPLOYMENT.md`.
-- [ ] Define users, roles, permissions, tenant/business boundaries, data ownership, module interfaces, API conventions, errors, configuration, and deployment targets.
-- [ ] Classify features as MVP, later, or deferred; keep the visual builder deferred.
-- [ ] Document privacy, security, backups, accessibility, and low-resource/offline requirements.
+- [x] Write `docs/PROJECT_SPECIFICATION.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/MODULES.md`, and `docs/DEPLOYMENT.md`.
+- [x] Define proposed users, access boundaries, data ownership, module/API conventions, errors, and deployment candidates.
+- [x] Classify features as MVP, later, or deferred; keep the visual builder deferred.
+- [x] Document privacy, security, backups, accessibility, and low-resource/offline requirements.
+- [ ] Review MVP scope and architecture decisions before implementation.
 **Done when:** MVP scope, boundaries, and acceptance criteria are reviewed.
 
+**Review:** these documents are proposed in [PR #2](https://github.com/ivynem/WebCentral/pull/2), which remains open and unmerged.
+
 ## Stage 2 — Development environment and quality baseline
-- [ ] Inspect Node.js and package-manager versions; document compatible versions.
-- [ ] Choose workspace tooling after inspecting current files.
-- [ ] Configure or verify TypeScript, formatting, linting, type-checking, tests, and build scripts.
-- [ ] Verify `.gitignore` and `.env.example`; exclude secrets and build output.
-- [ ] Add Dockerfiles/Compose only for services needed by the first milestone.
-- [ ] Document install, start, test, build, and troubleshooting commands.
-- [ ] Make setup scripts idempotent and non-destructive.
-**Done when:** a fresh checkout can follow the instructions and run the available checks.
+- [x] Inspect the empty application/tooling baseline; record verified files and existing commands.
+- [x] Select a single-package npm setup and pin Node.js 24.22.1 LTS.
+- [x] Add strict TypeScript, ESLint, Prettier, type-check, build, and test-check configuration.
+- [x] Add initial ignores for dependencies, generated output, and environment secrets.
+- [x] Document the available setup and check commands in [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
+- [ ] Generate and commit `package-lock.json`.
+- [ ] Install dependencies and verify the commands from a fresh checkout under the pinned Node.js version.
+- [ ] Add `.env.example` if the first feature requires configuration; add Docker only when needed.
+**Done when:** a fresh checkout can install reproducibly and pass the available checks.
+
+**Current Stage 2 status:** setup files are proposed in [PR #3](https://github.com/ivynem/WebCentral/pull/3), stacked on PR #2. The lockfile and command verification remain outstanding. The available host was Node.js 26.12.1/npm 11.20.0, not the pinned Node.js 24. Dependency resolution did not complete, so no lockfile or successful checks are claimed.
 
 ## Stage 3 — First deployable application
 - [ ] Choose a minimal first app, such as the Developer Portal or a landing/health page.
@@ -70,12 +78,14 @@ Work through stages in dependency order. Stages may overlap only when their prer
 ## Stage 4 — Environments and database
 - [ ] Choose a database client/ORM after reviewing requirements.
 - [ ] Define data-access boundaries and migrations.
-- [ ] Connect a Neon PostgreSQL development database.
+- [ ] Connect the requested Neon PostgreSQL production branch and provision selected services.
 - [ ] Isolate local, preview, and production data and credentials.
 - [ ] Add migrations, development seed data, safe fixtures, and connection health checks.
 - [ ] Document backup and restore; evaluate SQLite separately if local mode is required.
 - [ ] Never run destructive tests or unreviewed migrations against production.
 **Done when:** migrations, seed data, and integration tests work against isolated development data.
+
+**Neon setup status (2026-10-25):** not provisioned. The Neon CLI install and `npx` fallback did not complete during package retrieval, before initialization or sign-in. No `neon.ts`, environment file, or Neon service was created. Next: restore Neon CLI access, initialize the requested project/production branch and services, deploy, wire the returned variables into server-side service clients, then verify the build and each service end to end.
 
 ## Stage 5 — Shared application foundation
 - [ ] Define shared TypeScript types and validation schemas.
@@ -218,13 +228,13 @@ A feature is complete only when:
 
 ## Immediate next steps
 
-1. Inspect the actual files and branches; this roadmap does not mean features are implemented.
-2. Write the project specification and architecture documents (Stage 1).
-3. Establish the development and quality baseline (Stage 2).
-4. Deploy a minimal working app to Vercel (Stage 3).
-5. Connect a separate Neon development database (Stage 4).
+1. Review the Stage 0 inventory and Stage 1 proposals in PR #2.
+2. Complete Stage 2 by generating the npm lockfile and verifying the setup with Node.js 24.
+3. Select the first deployable application and UI/API framework after requirements review.
+4. Evaluate Vercel for compatible frontend/server functions (Stage 3).
+5. Evaluate an isolated Neon development database and local/offline needs (Stage 4).
 6. Implement the shared foundation before expanding portals and business modules.
 
 ## Current status
 
-**Planning baseline:** roadmap documented. Implementation stages remain incomplete until their acceptance criteria are verified against the repository and running application.
+Stage 0 inspection is recorded. Stage 1 documents are awaiting review in PR #2. Stage 2 tooling is proposed in PR #3; lockfile generation and runtime/check verification remain outstanding. Neon provisioning is blocked before CLI initialization; see the Stage 4 status above. No application feature or provider integration is claimed as implemented.

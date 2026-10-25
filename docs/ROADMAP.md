@@ -32,7 +32,15 @@ This roadmap records the verified starting point and follows the staged plan in 
 
 ## Stage 2 — Development environment and quality baseline
 
-Inspect the runtime and choose tooling based on the first application milestone. Establish reproducible install, development, type-check, lint, test, and build commands; verify ignore/secrets patterns. Add only the infrastructure needed for that milestone.
+- [x] Record the absence of existing runtime, package manager, application files, and quality scripts in the Stage 0 baseline.
+- [x] Pin Node.js 24.22.1 LTS and select npm for the current single-package repository.
+- [x] Add strict TypeScript, formatting, lint, type-check, build, and test-check scripts.
+- [x] Add initial ignore rules for dependencies, generated output, and secrets.
+- [ ] Generate and commit `package-lock.json` through dependency installation.
+- [ ] Install dependencies and verify the scripts in a fresh checkout; document actual versions and results.
+- [ ] Review whether `.env.example` is needed once the first feature's configuration is known.
+
+**Stage 2 status:** baseline configuration is drafted; reproducibility and command verification remain incomplete. See [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Stage 3 — First deployable application
 
