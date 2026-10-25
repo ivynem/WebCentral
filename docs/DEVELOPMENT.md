@@ -38,16 +38,16 @@ docker compose up --build
 
 Open `http://localhost:3000/api/health`. Compose starts the app and a local PostgreSQL 17 service with a named persistent volume. The sample credentials are only for local development. To test a Neon branch through Compose, replace `DATABASE_URL` in `.env` with that branch's pooled connection string, keep it out of source control, and run `docker compose up --build app`; do not use production credentials for local checks. Stop the services with `docker compose down`; remove local database data only with the explicit `docker compose down --volumes` command.
 
-Vercel should receive its environment-specific `DATABASE_URL` from the Neon integration in Vercel Project Settings. Deploy a preview and request `/api/health` to verify that hosted path. No Vercel deployment or live Neon connection is claimed until that request succeeds against the configured project.
+Vercel should receive its environment-specific `DATABASE_URL` from the Neon integration in Vercel Project Settings. The preview for commit `400e3ec` deployed successfully. Vercel deployment protection redirects unauthenticated requests to sign-in, so a live Neon connection is not claimed until `/api/health` succeeds from an authorized preview session.
 
 ## Verification record (2026-10-25)
 
 - `npm run check` passed on the available Node.js 26.12.1/npm 11.20.0 host: formatting, ESLint, TypeScript type-check, and 2 health response tests. Node 26 is outside the project's allowed Node 24 range.
 - `npm run build` passed on the host, and `docker compose build` passed using Node.js 24.22.1 in the image.
-- `docker compose up --detach` started PostgreSQL and the app; `curl http://localhost:3000/api/health` returned `200 OK` and `{"status":"ok","database":"connected"}`. `docker compose down` then stopped the containers and retained the named data volume.
-- The progress dashboard and both static assets (`/`, `/styles.css`, `/app.js`) returned `200 OK` from the rebuilt Compose image.
-- No live Vercel preview/Neon URL was tested. Two moderate npm advisories appeared for the full dependency tree during the image build; runtime-only impact has not been audited.
+- `docker compose up --build --detach` rebuilt the Node 24 image and started PostgreSQL and the app; `GET /api/health` returned `200 OK` and `{"status":"ok","database":"connected"}`.
+- Overview, Roadmap, Connections, Activity, CSS, and JavaScript each returned `200 OK` from the rebuilt Compose image.
+- Vercel reports the latest preview as deployed. Its access gate redirected our unauthenticated check, so the Neon-backed health route has not been verified. Two moderate npm advisories appeared for the full dependency tree; runtime-only impact has not been audited.
 
 ## Current limitations and next steps
 
-The UI framework remains open. The first database client is `pg`; no ORM or migration system has been selected. Vercel remains the deployment target for the health function, pending a verified preview. Repeat checks in a fresh checkout under Node 24 and run a live Neon check against a non-production branch before calling connectivity complete.
+The UI framework remains open. The first database client is `pg`; no ORM or migration system has been selected. A Vercel preview is deployed. Run the hosted health check against an isolated Neon Preview branch from an authorized Vercel session before calling hosted connectivity complete.

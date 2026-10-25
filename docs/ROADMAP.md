@@ -49,7 +49,7 @@ Use a sequential waterfall across phases: agree scope and acceptance criteria, i
 
 ## Stage 3 — First deployable application
 
-The first visible slice is a ForgeDesk project progress dashboard, served statically for Vercel and by the local Node HTTP server. Its database card runs `GET /api/health` and shows the real connection result. The Docker image built successfully; the page/assets returned `200 OK`, and its health check passed against local PostgreSQL. The Vercel preview deploys successfully after adding generated `public/` output. The preview requests sign-in, so its hosted database health check remains unverified until authenticated access is available.
+The first visible slice is a ForgeDesk workspace with focused Overview, Roadmap, Connections, and Activity pages, served statically for Vercel and by the local Node HTTP server. The Connections page runs `GET /api/health` and shows the real connection result. The rebuilt Docker image serves all four pages and assets with `200 OK`, and its health check passes against local PostgreSQL. The Vercel preview deploys successfully after adding generated `public/` output. The preview requests sign-in, so its hosted database health check remains unverified until authenticated access is available.
 
 ## Stage 4 — Environments and database
 
