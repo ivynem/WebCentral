@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    environment:
+      PORT: "3000"
+      DATABASE_URL: ${DATABASE_URL:-postgresql://forgedesk:forgedesk@db:5432/forgedesk}
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_DB: forgedesk
+      POSTGRES_USER: forgedesk
+      POSTGRES_PASSWORD: forgedesk
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U forgedesk -d forgedesk"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

@@ -24,12 +24,12 @@ The first release should establish a secure, usable foundation and a small Devel
 
 The following are planned user classes, not implemented accounts or permissions.
 
-| User class | Intended scope |
-|---|---|
+| User class             | Intended scope                                                                                              |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------- |
 | Platform administrator | Manage platform accounts, roles, module availability, settings, audit visibility, and operational controls. |
-| Developer | Inspect authorized projects, environments, module configuration, diagnostics, and deployments. |
-| Business owner/staff | Access records belonging to a business according to assigned permissions. |
-| Customer | Access public business content and their own account, inquiries, or orders. |
+| Developer              | Inspect authorized projects, environments, module configuration, diagnostics, and deployments.              |
+| Business owner/staff   | Access records belonging to a business according to assigned permissions.                                   |
+| Customer               | Access public business content and their own account, inquiries, or orders.                                 |
 
 Authorization must be checked on the server for every protected action. Role membership alone must not grant access across businesses. A person may hold different roles in different business contexts. Denied requests must not reveal whether another tenant's private records exist.
 

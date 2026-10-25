@@ -26,7 +26,7 @@ This roadmap records the verified starting point and follows the staged plan in 
 - [x] Define proposed user classes, access boundaries, module/data ownership, API/error conventions, deployment candidates, security, accessibility, privacy, low-resource, and offline requirements.
 - [x] Classify initial MVP, later phases, and deferred features; keep the visual builder deferred.
 - [ ] Review MVP scope and architecture decisions before implementation.
-- [ ] Resolve remaining decisions only after inspecting the runtime/tooling needs in Stage 2.
+- [x] Select the first minimal server slice after inspecting the Stage 2 runtime baseline: a Vercel Node function and matching local Node server.
 
 **Stage 1 completion condition:** the five documents are reviewed; open proposals are understood; the MVP boundary and acceptance criteria are agreed before implementation begins.
 
@@ -36,19 +36,20 @@ This roadmap records the verified starting point and follows the staged plan in 
 - [x] Pin Node.js 24.22.1 LTS and select npm for the current single-package repository.
 - [x] Add strict TypeScript, formatting, lint, type-check, build, and test-check scripts.
 - [x] Add initial ignore rules for dependencies, generated output, and secrets.
-- [ ] Generate and commit `package-lock.json` through dependency installation.
-- [ ] Install dependencies and verify the scripts in a fresh checkout; document actual versions and results.
+- [x] Generate `package-lock.json` through npm dependency resolution.
+- [x] Install the locked dependencies and run formatting, lint, type-check, build, and unit tests.
+- [ ] Repeat installation/checks under pinned Node.js 24.22.1 in a fresh checkout.
 - [ ] Review whether `.env.example` is needed once the first feature's configuration is known.
 
-**Stage 2 status:** baseline configuration is drafted; reproducibility and command verification remain incomplete. See [DEVELOPMENT.md](DEVELOPMENT.md).
+**Stage 2 status:** lockfile is generated and project checks pass on the available Node.js 26.12.1/npm 11.20.0 host, but Node 26 is outside the declared runtime range. Re-run under pinned Node.js 24.22.1 before marking Stage 2 complete. See [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Stage 3 — First deployable application
 
-Select a minimal first application after runtime inspection. Evaluate Vercel for compatible frontend/server functions; verify an isolated preview deployment before production configuration.
+The first minimal slice is `GET /api/health`, implemented as a native Vercel Node.js function and available locally through the Node HTTP server. The Docker image built successfully and the Compose endpoint returned `200 OK` after checking local PostgreSQL. Vercel deployment and preview verification remain outstanding.
 
 ## Stage 4 — Environments and database
 
-Choose a client/ORM and data boundaries. Evaluate Neon PostgreSQL for isolated development and preview environments. Evaluate SQLite separately if local/offline data is required. Add migrations and backup/restore procedures only after the choices are validated.
+The initial database client is `pg` with a bounded connection pool. `compose.yaml` starts a local PostgreSQL service on Docker Desktop; Vercel should use the Neon integration's server-side pooled `DATABASE_URL`. The health route exercises `SELECT 1` and returns no connection details. The local query path is verified; a live Neon/preview check, migrations, backups, and any SQLite adapter remain outstanding.
 
 ## Stages 5–15 — Core platform through production
 

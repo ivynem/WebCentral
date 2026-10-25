@@ -1,6 +1,6 @@
 # ForgeDesk Deployment
 
-**Status:** Candidate deployment approach only. Stage 0 found no application, deployment configuration, provider integration, database connection, or environment setup in the repository.
+**Status:** The first TypeScript health endpoint is implemented for Vercel's native Node.js function runtime and local Docker Compose. The Vercel project, Neon environment variables, and live deployment have not been verified from this checkout.
 
 ## 1. Deployment shape
 
@@ -10,11 +10,11 @@ Vercel is a candidate for compatible frontends and server functions, not a confi
 
 ## 2. Environments
 
-| Environment | Intended use | Data and access |
-|---|---|---|
-| Local | Development | Local/test data; no production credentials by default. |
-| Preview | Pull request validation | Isolated non-production database and credentials; never production data. |
-| Production | Real users | Restricted credentials, reviewed migrations, backups, monitoring, and rollback plan. |
+| Environment | Intended use            | Data and access                                                                      |
+| ----------- | ----------------------- | ------------------------------------------------------------------------------------ |
+| Local       | Development             | Local/test data; no production credentials by default.                               |
+| Preview     | Pull request validation | Isolated non-production database and credentials; never production data.             |
+| Production  | Real users              | Restricted credentials, reviewed migrations, backups, monitoring, and rollback plan. |
 
 Each environment must have separate secrets and data. Avoid copying personal production data into previews. Use synthetic fixtures where possible.
 
@@ -38,7 +38,7 @@ SQLite may be evaluated for local/offline use behind a tested adapter; do not pr
 
 ## 5. Build, release, and rollback
 
-The build and deployment commands are unknown because no package manifest or application code is present. Stage 2 must establish reproducible scripts and compatible runtime versions before provider configuration.
+The repository provides `npm run build` and `npm start` for the local Node HTTP server. Vercel can build `api/health.ts` as a native function. Keep `DATABASE_URL` in Vercel's server-side environment settings; use an isolated Neon preview branch and pooled URL for previews. A successful `/api/health` response is required to confirm deployment connectivity.
 
 For a release: review the change, run the repository's available checks, deploy to an isolated preview, validate critical paths, approve production release, monitor health, and retain a rollback or forward-fix plan. Production deployment from `main` is a roadmap proposal, not a current workflow.
 
@@ -54,10 +54,10 @@ Before production use, define health/readiness checks, secret-safe logs, monitor
 
 ## 8. Provider decision record
 
-| Capability | Current status |
-|---|---|
-| Vercel | Candidate for compatible frontends/server functions; not configured or verified. |
-| Neon PostgreSQL | Candidate hosted database; not provisioned or verified. |
-| Other host | To evaluate if long-running services or worker needs exceed selected host capabilities. |
-| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet. |
-| CI/CD | No workflow was present at the Stage 0 inspected head. |
+| Capability             | Current status                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| Vercel                 | Candidate for compatible frontends/server functions; not configured or verified.        |
+| Neon PostgreSQL        | Candidate hosted database; not provisioned or verified.                                 |
+| Other host             | To evaluate if long-running services or worker needs exceed selected host capabilities. |
+| Local/offline database | SQLite is an evaluation candidate behind a tested adapter; not supported yet.           |
+| CI/CD                  | No workflow was present at the Stage 0 inspected head.                                  |
