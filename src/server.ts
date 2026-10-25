@@ -5,6 +5,18 @@ import { createHealthResponse } from "./health.js";
 const port = Number(process.env.PORT ?? 3000);
 const staticFiles: Record<string, { file: string; contentType: string }> = {
   "/": { file: "../../index.html", contentType: "text/html; charset=utf-8" },
+  "/roadmap.html": {
+    file: "../../roadmap.html",
+    contentType: "text/html; charset=utf-8",
+  },
+  "/database.html": {
+    file: "../../database.html",
+    contentType: "text/html; charset=utf-8",
+  },
+  "/activity.html": {
+    file: "../../activity.html",
+    contentType: "text/html; charset=utf-8",
+  },
   "/styles.css": {
     file: "../../styles.css",
     contentType: "text/css; charset=utf-8",

@@ -81,7 +81,7 @@ Work through stages in dependency order. Stages may overlap only when their prer
 - [ ] Verify the deployment and document logs and rollback.
       **Done when:** a working app can be tested from a preview URL.
 
-**First UI slice:** the ForgeDesk progress dashboard is served alongside `api/health.ts` in Vercel and from `src/server.ts` in Docker Compose. It tracks the current phase, delivery steps, preview status, and live database health. Each phase includes its finished UI before that phase is considered delivered. Local Compose returned `200 OK` after a real `SELECT 1` against local PostgreSQL. Vercel now reports the preview deployed successfully after the build output fix; the protected preview redirects to Vercel sign-in, so hosted Neon connectivity has not yet been verified.
+**First UI slice:** the ForgeDesk project workspace has focused Overview, Roadmap, Connections, and Activity pages, served alongside `api/health.ts` in Vercel and from `src/server.ts` in Docker Compose. It tracks the current phase, delivery steps, preview status, and live database health without putting all details on one long page. A persisted theme switch, page-transition loader, connection spinner, and pill-shaped actions provide consistent feedback. Each phase includes its finished UI before that phase is considered delivered. Local Compose returned `200 OK` after a real `SELECT 1` against local PostgreSQL. Vercel reports the preview deployed successfully after the build output fix; hosted Neon connectivity still needs a health check from an authorized preview session.
 
 ## Stage 4 — Environments and database
 

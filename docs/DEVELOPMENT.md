@@ -9,7 +9,7 @@ This document records the Stage 2 tooling baseline and the first database health
 - Use TypeScript in strict mode for new application and backend code. TypeScript 5.9.3 is pinned because the selected TypeScript ESLint integration documents support through TypeScript <6.1. Preserve any existing HTML/CSS/JavaScript if later discovered.
 - Tool versions are exact in `package.json`; `package-lock.json` is generated for repeatable `npm ci` installs.
 - The first server runtime uses Node's built-in HTTP server locally and Vercel's native TypeScript function under `api/`. It intentionally adds no web framework.
-- The root progress dashboard is static HTML/CSS/JavaScript served by the local Node server and deployed as Vercel static assets. Each project phase includes its user-facing UI in the same deliverable; it is not scheduled as a later visual-only pass.
+- The dashboard uses focused static pages for Overview, Roadmap, Connections, and Activity. The same HTML/CSS/JavaScript pages are served by the local Node server and deployed as Vercel static assets. It includes a persisted light/dark theme, accessible loading/transition feedback, and pill-shaped primary actions. Each project phase includes its user-facing UI in the same deliverable; it is not scheduled as a later visual-only pass.
 - PostgreSQL access uses the `pg` driver from server-only modules. A small pool is reused within a warm function instance and bounded to two connections. Use Neon's pooled connection string for Vercel environments.
 
 ## Commands

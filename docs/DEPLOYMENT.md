@@ -38,7 +38,7 @@ SQLite may be evaluated for local/offline use behind a tested adapter; do not pr
 
 ## 5. Build, release, and rollback
 
-The repository provides `npm run build` and `npm start` for the local Node HTTP server. `vercel.json` runs that build and publishes the generated `public/` directory, while Vercel discovers `api/health.ts` as a Node.js function. The build copies the dashboard assets into `public/`; TypeScript output remains in `dist/` and is not published as static files. Keep `DATABASE_URL` in Vercel's server-side environment settings; use an isolated Neon preview branch and pooled URL for previews. A successful `/api/health` response is required to confirm deployment connectivity.
+The repository provides `npm run build` and `npm start` for the local Node HTTP server. `vercel.json` runs that build and publishes the generated `public/` directory, while Vercel discovers `api/health.ts` as a Node.js function. The build copies the Overview, Roadmap, Connections, and Activity pages plus shared assets into `public/`; TypeScript output remains in `dist/` and is not published as static files. Keep `DATABASE_URL` in Vercel's server-side environment settings; use an isolated Neon preview branch and pooled URL for previews. A successful `/api/health` response is required to confirm deployment connectivity.
 
 For a release: review the change, run the repository's available checks, deploy to an isolated preview, validate critical paths, approve production release, monitor health, and retain a rollback or forward-fix plan. Production deployment from `main` is a roadmap proposal, not a current workflow.
 
