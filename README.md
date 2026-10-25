@@ -78,12 +78,14 @@ Work through stages in dependency order. Stages may overlap only when their prer
 ## Stage 4 — Environments and database
 - [ ] Choose a database client/ORM after reviewing requirements.
 - [ ] Define data-access boundaries and migrations.
-- [ ] Connect a Neon PostgreSQL development database.
+- [ ] Connect the requested Neon PostgreSQL production branch and provision selected services.
 - [ ] Isolate local, preview, and production data and credentials.
 - [ ] Add migrations, development seed data, safe fixtures, and connection health checks.
 - [ ] Document backup and restore; evaluate SQLite separately if local mode is required.
 - [ ] Never run destructive tests or unreviewed migrations against production.
 **Done when:** migrations, seed data, and integration tests work against isolated development data.
+
+**Neon setup status (2026-10-25):** not provisioned. The Neon CLI install and `npx` fallback did not complete during package retrieval, before initialization or sign-in. No `neon.ts`, environment file, or Neon service was created. Next: restore Neon CLI access, initialize the requested project/production branch and services, deploy, wire the returned variables into server-side service clients, then verify the build and each service end to end.
 
 ## Stage 5 — Shared application foundation
 - [ ] Define shared TypeScript types and validation schemas.
@@ -235,4 +237,4 @@ A feature is complete only when:
 
 ## Current status
 
-Stage 0 inspection is recorded. Stage 1 documents are awaiting review in PR #2. Stage 2 tooling is proposed in PR #3; lockfile generation and runtime/check verification remain outstanding. No application feature or provider integration is claimed as implemented.
+Stage 0 inspection is recorded. Stage 1 documents are awaiting review in PR #2. Stage 2 tooling is proposed in PR #3; lockfile generation and runtime/check verification remain outstanding. Neon provisioning is blocked before CLI initialization; see the Stage 4 status above. No application feature or provider integration is claimed as implemented.
